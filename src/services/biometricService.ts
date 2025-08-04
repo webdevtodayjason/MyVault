@@ -42,7 +42,7 @@ class BiometricService {
   async registerBiometric(userId: string, adminPin: string): Promise<boolean> {
     try {
       // Verify admin PIN first
-      if (adminPin !== '445566') {
+      if (adminPin !== '999999') {
         throw new Error('Invalid admin PIN');
       }
 
@@ -178,7 +178,7 @@ class BiometricService {
   async registerSecurityKey(adminPin: string, nickname?: string): Promise<boolean> {
     try {
       // Verify admin PIN first
-      if (adminPin !== '445566') {
+      if (adminPin !== '999999') {
         throw new Error('Invalid admin PIN');
       }
 

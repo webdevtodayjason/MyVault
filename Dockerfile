@@ -12,6 +12,9 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Add cache busting
+ARG CACHEBUST=1
+
 # Build the application
 RUN npm run build
 

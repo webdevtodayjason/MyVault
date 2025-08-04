@@ -1,7 +1,7 @@
 {
   "name": "my-vault",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Secure management for your API keys, applications, and bookmarks with biometric authentication",
   "author": "Jason",
   "license": "MIT",

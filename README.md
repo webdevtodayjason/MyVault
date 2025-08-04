@@ -274,6 +274,36 @@ export const NewFeature = () => {
 - Add to useDatabase hook
 - Update dataConverters.ts
 
+## 🐛 Troubleshooting
+
+### Docker Container Issues
+
+If the PIN authentication fails in Docker but works locally:
+
+1. **Clear all Docker caches**:
+```bash
+docker-compose down -v
+docker system prune -f
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+2. **Browser cache issues**:
+- Clear all browser data for localhost:3000
+- Use a fresh incognito/private window
+- Disable service workers if they're caching old files
+
+### PIN Authentication
+
+- Default PIN: `445566` (6 digits)
+- Admin PIN for biometric setup: `999999`
+- After 3 failed attempts, account locks for 5 minutes
+
+### Known Issues
+
+- Service workers may cache old JavaScript files - clear browser data to resolve
+- On Windows, ensure Docker Desktop is running with WSL2 backend
+
 ## 🤝 Contributing
 
 1. Fork the repository

@@ -6,7 +6,7 @@ export const authConfig = {
   pin: "445566",
   
   // Admin PIN for initial biometric setup
-  adminPin: "445566",
+  adminPin: "999999",
   
   // Enable biometric authentication
   biometricEnabled: true,
@@ -36,6 +36,11 @@ export const updatePin = (newPin: string): void => {
 export const loadPin = (): void => {
   const storedPin = localStorage.getItem('auth_pin');
   if (storedPin) {
-    authConfig.pin = atob(storedPin);
+    try {
+      const decodedPin = atob(storedPin);
+      authConfig.pin = decodedPin;
+    } catch (e) {
+      localStorage.removeItem('auth_pin');
+    }
   }
 };

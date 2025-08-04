@@ -57,7 +57,9 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
     setBiometricSupported(isAvailable && hasRegistered);
   };
 
-  const handlePinSubmit = () => {
+  const handlePinSubmit = (overridePin?: string) => {
+    const pinToSubmit = overridePin || pin;
+    
     if (isLocked) {
       toast({
         title: "Account Locked",
@@ -70,7 +72,7 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
     setIsAuthenticating(true);
     
     setTimeout(() => {
-      if (validatePin(pin)) {
+      if (validatePin(pinToSubmit)) {
         toast({
           title: "Welcome Back!",
           description: "Authentication successful"
@@ -180,9 +182,21 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
 
   const handlePinChange = (value: string, index: number) => {
     if (value.length <= 1 && /^\d*$/.test(value)) {
-      const newPin = pin.split('');
-      newPin[index] = value;
-      setPin(newPin.join(''));
+      // Initialize array with current pin chars
+      const currentChars = pin.split('');
+      const newPinArray = new Array(6).fill('');
+      
+      // Copy existing values
+      for (let i = 0; i < currentChars.length && i < 6; i++) {
+        newPinArray[i] = currentChars[i];
+      }
+      
+      // Set new value at index
+      newPinArray[index] = value;
+      
+      // Join only non-empty values
+      const updatedPin = newPinArray.filter(char => char !== '').join('');
+      setPin(updatedPin);
       
       // Auto-focus next input
       if (value && index < 5) {
@@ -190,12 +204,9 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
       }
       
       // Auto-submit when all 6 digits are entered
-      if (index === 5 && value) {
-        const fullPin = newPin.join('');
-        if (fullPin.length === 6) {
-          setPin(fullPin);
-          setTimeout(() => handlePinSubmit(), 100);
-        }
+      if (index === 5 && value && updatedPin.length === 6) {
+        // Pass the updated PIN directly to avoid state update race condition
+        setTimeout(() => handlePinSubmit(updatedPin), 100);
       }
     }
   };
@@ -278,7 +289,7 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
           {/* Action Buttons */}
           <div className="space-y-3">
             <Button
-              onClick={handlePinSubmit}
+              onClick={() => handlePinSubmit()}
               disabled={pin.length !== 6 || isLocked || isAuthenticating}
               className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 shadow-lg text-white font-medium"
             >
