@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="100" fill="url(#bgGrad)"/>
+  
+  <!-- Shield/Vault shape -->
+  <path d="M256 80 L160 140 L160 280 Q160 380 256 420 Q352 380 352 280 L352 140 Z" 
+        fill="#111827" 
+        stroke="url(#shieldGrad)" 
+        stroke-width="8"
+        opacity="0.95"/>
+  
+  <!-- Lock keyhole -->
+  <circle cx="256" cy="220" r="30" fill="url(#shieldGrad)"/>
+  <rect x="246" y="220" width="20" height="60" fill="url(#shieldGrad)"/>
+  
+  <!-- Key icon -->
+  <g transform="translate(256, 320)">
+    <rect x="-40" y="-8" width="80" height="16" rx="8" fill="#fbbf24"/>
+    <circle cx="40" cy="0" r="20" fill="none" stroke="#fbbf24" stroke-width="8"/>
+    <rect x="30" y="-4" width="20" height="8" fill="#fbbf24"/>
+    <rect x="35" y="-4" width="8" height="20" fill="#fbbf24"/>
+  </g>
+</svg>

@@ -1,0 +1,64 @@
+{
+  "name": "My Vault - Secure Key Manager",
+  "short_name": "My Vault",
+  "description": "Secure management for your API keys, applications, and bookmarks with biometric authentication",
+  "theme_color": "#ec4899",
+  "background_color": "#111827",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "id": "my-vault-pwa",
+  "categories": ["productivity", "security", "utilities"],
+  "icons": [
+    {
+      "src": "/myvault-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/myvault-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/myvault-logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Dashboard view with API keys and applications"
+    },
+    {
+      "src": "/screenshot-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Secure biometric authentication"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add API Key",
+      "short_name": "New Key",
+      "description": "Add a new API key",
+      "url": "/dashboard?tab=apiKeys",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Add Bookmark",
+      "short_name": "Bookmark",
+      "description": "Add a new bookmark",
+      "url": "/dashboard?tab=bookmarks",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
+}

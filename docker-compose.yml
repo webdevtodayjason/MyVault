@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  my-vault:
+    build: .
+    container_name: my-vault
+    ports:
+      - "3000:80"
+    volumes:
+      - vault-data:/data
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.my-vault.rule=Host(`vault.local`)"
+      - "traefik.http.services.my-vault.loadbalancer.server.port=80"
+
+volumes:
+  vault-data:
+    driver: local

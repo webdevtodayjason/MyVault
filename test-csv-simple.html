@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Test</title>
+</head>
+<body>
+    <h1>CSV Export/Import Test</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        // Test data with multiple tags
+        const testData = {
+            apps: [],
+            apiKeys: [],
+            bookmarks: [
+                {
+                    id: 'bm1',
+                    title: 'API Documentation',
+                    url: 'https://docs.api.com',
+                    tags: ['api', 'documentation', 'reference', 'REST'],
+                    createdAt: '2024-01-01'
+                },
+                {
+                    id: 'bm2',
+                    title: 'GraphQL Guide',
+                    url: 'https://graphql.org',
+                    tags: ['graphql', 'api', 'query', 'mutation', 'schema'],
+                    createdAt: '2024-01-02'
+                }
+            ]
+        };
+
+        // CSV export function
+        function toCSV(data) {
+            let csv = 'Type,Name,Description,URL,API Key ID,Tags (pipe-separated),Key,Status,Last Used,Created\n';
+            
+            data.bookmarks.forEach(bookmark => {
+                const row = [
+                    'Bookmark',
+                    bookmark.title,
+                    '', // No description
+                    bookmark.url,
+                    '', // No API Key ID
+                    bookmark.tags.join('|'), // Use pipe delimiter
+                    '', // No key
+                    '', // No status
+                    '', // No last used
+                    bookmark.createdAt
+                ];
+                csv += row.join(',') + '\n';
+            });
+            
+            return csv;
+        }
+
+        // CSV parse function
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n').filter(line => line.trim());
+            const bookmarks = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                if (values[0] === 'Bookmark') {
+                    bookmarks.push({
+                        title: values[1],
+                        url: values[3],
+                        tags: values[5] ? values[5].split('|').map(t => t.trim()) : [],
+                        createdAt: values[9]
+                    });
+                }
+            }
+            
+            return { bookmarks };
+        }
+
+        // Run tests
+        const results = document.getElementById('results');
+        
+        // Test 1: Export
+        const csvOutput = toCSV(testData);
+        results.innerHTML += '<h2>Test 1: Export to CSV</h2>';
+        results.innerHTML += '<pre>' + csvOutput + '</pre>';
+        
+        // Test 2: Parse
+        const parsed = parseCSV(csvOutput);
+        results.innerHTML += '<h2>Test 2: Parse CSV back</h2>';
+        parsed.bookmarks.forEach(bm => {
+            results.innerHTML += `<p><b>${bm.title}</b>: tags = [${bm.tags.join(', ')}]</p>`;
+        });
+        
+        // Test 3: Verify tags preserved correctly
+        results.innerHTML += '<h2>Test 3: Verification</h2>';
+        const originalTags = testData.bookmarks[0].tags.join('|');
+        const parsedTags = parsed.bookmarks[0].tags.join('|');
+        const success = originalTags === parsedTags;
+        results.innerHTML += `<p style="color: ${success ? 'green' : 'red'}">`;
+        results.innerHTML += success ? '✓ Tags preserved correctly!' : '✗ Tags not preserved';
+        results.innerHTML += '</p>';
+    </script>
+</body>
+</html>
