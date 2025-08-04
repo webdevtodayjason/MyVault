@@ -37,3 +37,7 @@ typings
 docker-compose.yml
 Dockerfile
 .dockerignore
+docker-init.sh
+setup-git.sh
+logs/
+*.md

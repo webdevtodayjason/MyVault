@@ -18,24 +18,26 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine
 
-# Install Node.js for database initialization
-RUN apk add --no-cache nodejs npm
-
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy database initialization script
-COPY docker-init.sh /docker-init.sh
-RUN chmod +x /docker-init.sh
-
-# Create directory for database
+# Create directory for data persistence
 RUN mkdir -p /data
+
+# Create a simple entrypoint script inline to avoid line ending issues
+RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
+    echo 'echo "Starting My Vault..."' >> /docker-entrypoint.sh && \
+    echo 'echo "Data directory: /data"' >> /docker-entrypoint.sh && \
+    echo 'mkdir -p /data' >> /docker-entrypoint.sh && \
+    echo 'echo "Starting nginx..."' >> /docker-entrypoint.sh && \
+    echo 'exec nginx -g "daemon off;"' >> /docker-entrypoint.sh && \
+    chmod +x /docker-entrypoint.sh
 
 # Expose port 80
 EXPOSE 80
 
-# Start nginx and initialization script
-CMD ["/docker-init.sh"]
+# Use the inline script to avoid Windows line ending issues
+CMD ["/docker-entrypoint.sh"]
