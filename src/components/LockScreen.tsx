@@ -117,7 +117,7 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
         if (adminPin !== authConfig.adminPin) {
           toast({
             title: "Invalid Admin PIN",
-            description: "Please enter the correct admin PIN (445566)",
+            description: "Please enter the correct admin PIN",
             variant: "destructive"
           });
           setIsAuthenticating(false);
@@ -185,14 +185,14 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
       setPin(newPin.join(''));
       
       // Auto-focus next input
-      if (value && index < 3) {
+      if (value && index < 5) {
         pinInputRefs.current[index + 1]?.focus();
       }
       
-      // Auto-submit when all 4 digits are entered
-      if (index === 3 && value) {
+      // Auto-submit when all 6 digits are entered
+      if (index === 5 && value) {
         const fullPin = newPin.join('');
-        if (fullPin.length === 4) {
+        if (fullPin.length === 6) {
           setPin(fullPin);
           setTimeout(() => handlePinSubmit(), 100);
         }
@@ -258,8 +258,8 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
           {/* PIN Input */}
           <div className="space-y-4">
             <label className="text-sm font-medium glass-pink-glow-subtle">Enter PIN</label>
-            <div className="flex gap-3 justify-center">
-              {[0, 1, 2, 3].map((index) => (
+            <div className="flex gap-2 justify-center">
+              {[0, 1, 2, 3, 4, 5].map((index) => (
                 <Input
                   key={index}
                   ref={(el) => (pinInputRefs.current[index] = el)}
@@ -268,7 +268,7 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
                   value={pin[index] || ''}
                   onChange={(e) => handlePinChange(e.target.value, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
-                  className="w-14 h-14 text-center text-2xl bg-gray-800/50 border-gray-700 text-white focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
+                  className="w-12 h-14 text-center text-2xl bg-gray-800/50 border-gray-700 text-white focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20"
                   disabled={isLocked || isAuthenticating}
                 />
               ))}
@@ -279,7 +279,7 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
           <div className="space-y-3">
             <Button
               onClick={handlePinSubmit}
-              disabled={pin.length !== 4 || isLocked || isAuthenticating}
+              disabled={pin.length !== 6 || isLocked || isAuthenticating}
               className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 shadow-lg text-white font-medium"
             >
               {isAuthenticating ? (
@@ -312,7 +312,7 @@ const LockScreen = ({ onUnlock }: LockScreenProps) => {
           <div className="text-center text-xs text-gray-500">
             <p>PIN: 445566</p>
             {!hasBiometrics && biometricAvailable && (
-              <p className="mt-1">Admin PIN for biometric setup: 445566</p>
+              <p className="mt-1">Admin PIN for biometric setup: 999999</p>
             )}
           </div>
 
