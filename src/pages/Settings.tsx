@@ -227,9 +227,16 @@ const Settings = () => {
             Back to Dashboard
           </Button>
           
-          <h1 className="text-3xl md:text-4xl font-bold glass-pink-glow-strong mb-2">
-            Security Settings
-          </h1>
+          <div className="flex items-center gap-3 mb-2">
+            <img 
+              src="/myvault-logo.png" 
+              alt="My Vault Logo" 
+              className="w-10 h-10 md:w-12 md:h-12 rounded-lg shadow-lg"
+            />
+            <h1 className="text-3xl md:text-4xl font-bold glass-pink-glow-strong">
+              Security Settings
+            </h1>
+          </div>
           <p className="text-gray-400">
             Manage your authentication methods and security keys
           </p>

@@ -333,9 +333,16 @@ const Dashboard = () => {
         {/* Header */}
         <header className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
-              My Vault
-            </h1>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/myvault-logo.png" 
+                alt="My Vault Logo" 
+                className="w-10 h-10 md:w-12 md:h-12 rounded-lg shadow-lg"
+              />
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+                My Vault
+              </h1>
+            </div>
             <div className="flex gap-2 items-center">
               <div className="flex gap-2">
               <Badge variant="secondary">
